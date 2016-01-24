@@ -22,6 +22,18 @@ class Product
     add_product
   end
 
+  def lower_stock
+    if !in_stock?
+      raise OutOfStockError, "'#{@title}' is out of stock." 
+    else
+      @stock -= 1
+    end
+  end
+
+  def raise_stock
+    @stock += 1
+  end
+
   def in_stock?
     (@stock > 0)
   end

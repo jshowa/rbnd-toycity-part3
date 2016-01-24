@@ -3,7 +3,7 @@ class Customer
   private
   
   @@customers = []
-  @@id = 0
+  @@id = 1
 
   def add_customer
     if Customer.find_by_name(@name) != nil
@@ -21,6 +21,10 @@ class Customer
   def initialize(arguments={})
     @name = arguments[:name] || ""
     add_customer
+  end
+
+  def purchase(product)
+    Transaction.new(self, product)
   end
 
   def self.find_by_name(target = "")

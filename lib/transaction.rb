@@ -3,9 +3,10 @@ class Transaction
   private
   
   @@transactions = []
-  @@id = 0
+  @@id = 1
 
   def add_transaction
+    @product.lower_stock
     @id = @@id
     @@transactions << self
     @@id += 1
@@ -15,14 +16,14 @@ class Transaction
 
   attr_reader :customer, :product, :id
   
-  def initialize(arguments={})
-    @customer = arguments[:customer] || nil
-    @product = arguments[:product] || nil
+  def initialize(customer, product)
+    @customer = customer.is_a?(Customer) ? customer : nil
+    @product = product.is_a?(Product) ? product : nil
     add_transaction
   end
 
-  def self.find(i = 0)
-    @@transactions.select { |transaction| transaction.id == i }[i]
+  def self.find(i = 1)
+    @@transactions.select { |transaction| transaction.id == i  }[0]
   end
 
   def self.all
