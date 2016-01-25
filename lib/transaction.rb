@@ -6,10 +6,18 @@ class Transaction
   @@id = 1
 
   def add_transaction
-    @product.lower_stock
+    alter_stock
     @id = @@id
     @@transactions << self
     @@id += 1
+  end
+
+  def alter_stock
+    if self.instance_of?(Sale) || self.instance_of?(Transaction)
+      @product.lower_stock
+    elsif self.instance_of?(Return)
+      @prouct.raise_stock
+    end
   end
 
   public

@@ -24,7 +24,11 @@ class Customer
   end
 
   def purchase(product)
-    Transaction.new(self, product)
+    Sale.new(self, product)
+  end
+
+  def return(product)
+    Return.new(self, product)
   end
 
   def self.find_by_name(target = "")

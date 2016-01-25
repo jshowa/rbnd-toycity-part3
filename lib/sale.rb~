@@ -1,0 +1,6 @@
+class Sale < Transaction
+
+  def initialize(customer, product)
+    super(customer, product)
+  end
+end
