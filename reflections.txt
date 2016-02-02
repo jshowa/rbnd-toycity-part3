@@ -1,0 +1,15 @@
+1. How long did you spend working on this project?
+
+Probably about 6 to 8 hours total.
+
+2. What was the most rewarding challenge you conquered?
+
+The ability to import the json data from the previous toy city projects into my newly created class arrays. This was part of a new feature that proved to be difficult since parsing the JSON data returns a mix of arrays and hash elements.
+
+3. What two additional features did you build? Why?
+
+The first feature was a return mechanism which allows the ability to add stock. I accomplished this by inheriting from the transaction class since a return is essentially a transaction except the stock of a product is incremented instead of decremented. I also did the same extension for a sale transaction in order to encapsulate the decrementing of stock. The second feature was the ability to import JSON data that was used in the previous toy city projects. Since the JSON data contained product, customer, and purchase data that were analogous to the Product, Customer, and Transaction classes, having the ability to import existing data into the program makes it more flexible for a variety of implementations.
+
+4. Where do you still have room to grow?
+
+I probably have more room to grow in terms of handling multiple code files and bigger projects. It's difficult to code multiple classes and make sure you're still having the classes maintain their own state.
