@@ -16,10 +16,11 @@ class Customer
 
   public
 
-  attr_reader :name, :id
+  attr_reader :name, :state, :id
   
   def initialize(arguments={})
     @name = arguments[:name] || ""
+    @state = arguments[:state] || ""
     add_customer
   end
 
@@ -31,6 +32,10 @@ class Customer
     Return.new(self, product)
   end
 
+  def puts
+    "#{@name}, #{@state}" 
+  end
+  
   def self.find_by_name(target = "")
     @@customers.select { |customer| customer.name == target }[0]
   end
@@ -41,5 +46,19 @@ class Customer
 
   def self.count
     @@customers.length
+  end
+
+  def self.clear
+    (@@customers.length).times do
+      @@customers.pop
+    end
+
+    @@id = 1
+  end
+
+  def self.puts
+    @@customers.each { |cust|
+      puts "#{cust.name}, #{cust.state}"
+    }
   end
 end

@@ -22,11 +22,17 @@ class Transaction
 
   public
 
-  attr_reader :customer, :product, :id
+  attr_reader :customer, :product, :id, :date, :channel, :price, :shipping, :currency
   
-  def initialize(customer, product)
+  def initialize(customer, product, options={})
     @customer = customer.is_a?(Customer) ? customer : nil
     @product = product.is_a?(Product) ? product : nil
+    @channel = options[:channel] || "default"
+    @date = options[:date] || "1990-01-01T00:00:00+00:00"
+    @shipping = options[:shipping] || 0.0
+    @price = options[:price] || 0.0
+    @currency = options[:currency] || "USD"
+    
     add_transaction
   end
 
@@ -40,5 +46,24 @@ class Transaction
 
   def self.count
     @@transactions.length
+  end
+
+  def self.clear
+    (@@transactions.length).times do
+      @@transactions.pop
+    end
+
+    @@id = 1
+  end
+
+  def puts
+    return "#{@id}, " +
+      "#{@customer.name}, " +
+      "#{@product.title}, " +
+      "#{@channel}, " +
+      "#{@date}, " +
+      "#{@price}, " +
+      "#{@shipping}, " +
+      "#{@currency}"
   end
 end  

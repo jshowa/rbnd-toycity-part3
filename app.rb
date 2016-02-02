@@ -4,6 +4,7 @@ require_relative "lib/product"
 require_relative "lib/transaction"
 require_relative "lib/sale"
 require_relative "lib/return"
+require_relative "lib/dataimporter"
 
 # PRODUCTS
 
@@ -67,9 +68,56 @@ puts transaction2.product == nanoblock # Should return true
 # walter.purchase(firehouse)
 # Should return OutOfStockError: 'LEGO Firehouse Headquarter' is out of stock.
 
+# TEST NEW FEATURES 
+
+puts
+puts "*********NEW FEATURES**********"
+puts
+puts "***********RETURNS*************"
+puts
+
 # RETURNS
-puts nanoblock.stock # Should return 10
+puts "Current nanoblock stock = #{nanoblock.stock}" # Should return 10
 
 walter.return(nanoblock)
 
-puts nanoblock.stock # Should return 11
+puts "Nanoblock stock after return = #{nanoblock.stock}" # Should return 11
+
+# JSON DATA IMPORT
+
+puts
+puts "*********JSON DATA IMPORT**********"
+puts
+puts "*******CLEAR EXISTING DATA*********"
+puts
+
+Product.clear
+Transaction.clear
+Customer.clear
+
+data = DataImporter.new(File.dirname(__FILE__), "data/products.json")
+data.JSON_parser
+
+data.JSON_add_products
+data.JSON_add_customers
+data.JSON_add_transactions
+
+puts "*** ADDED PRODUCTS FROM #{data.full_path} ***"
+
+Product.all.each { |product|
+ puts "[" + product.puts + "]"
+}
+
+puts
+puts "*** ADDED CUSTOMERS FROM #{data.full_path} ***"
+
+Customer.all.each { |customer|
+ puts "(" + customer.puts + ")"
+}
+
+puts
+puts "*** ADDED TRANSACTIONS FROM #{data.full_path} ***"
+
+Transaction.all.each { |trans|
+ puts "{" + trans.puts + "}"
+}
